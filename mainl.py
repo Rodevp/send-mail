@@ -15,7 +15,16 @@ def main() :
     email_message["From"] = email_endpoint
     email_message["To"] = receive_email
     email_message["Subject"] = subject
-    email_message.set_content(body)
+
+    html = f"""
+        <html>
+            <body>
+                <h1>{subject}</h1>
+                <p>{body}</p>
+            </body>
+        </html>
+    """
+    email_message.add_alternative(html, subtype="html")
 
     ctx = ssl.create_default_context()
 

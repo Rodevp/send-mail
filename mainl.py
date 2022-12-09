@@ -17,7 +17,11 @@ def main() :
     email_message["Subject"] = subject
     email_message.set_content(body)
 
-    
+    ctx = ssl.create_default_context()
+
+    with smtp.SMTP_SSL("smtp.gmail.com", 465, context=ctx) as server :
+        server.login(email_endpoint, password)
+        server.sendmail(email_endpoint, receive_email, email_message.as_string())
 
 
 if __name__ == "__main__" :
